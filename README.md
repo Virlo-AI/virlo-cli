@@ -1,24 +1,39 @@
-<div align="center">
 
-⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣶⣿⣿⣿⣿⣿⣷⣦⡀<br>
-⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷<br>
-⠀⠀⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟<br>
-⠀⠀⠀⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀<br>
-⠀⠀⠀⠀⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⠀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠀⠀<br>
-⠀⠀⠀⠀⠀⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠁⠀⠀⠀<br>
-⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<br>
-⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<br>
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<br>
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀<br>
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀<br>
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<br>
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<br>
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣿⣿⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<br>
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<br>
 
-</div>
+⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣶⣿⣿⣿⣿⣿⣷⣦⡀  
 
-**Virlo CLI** — run your social intelligence\* from the terminal.
+⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷  
+
+⠀⠀⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟  
+
+⠀⠀⠀⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀  
+
+⠀⠀⠀⠀⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⠀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠀⠀  
+
+⠀⠀⠀⠀⠀⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠁⠀⠀⠀  
+
+⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  
+
+⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  
+
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  
+
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀  
+
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀  
+
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  
+
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  
+
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣿⣿⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  
+
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  
+
+
+
+
+**Virlo CLI** — run your social intelligence from the terminal.
 
 The official command-line interface for [Virlo](https://dev.virlo.ai/docs): TikTok,
 YouTube Shorts, Instagram Reels, and Meta Ads research — trends, viral videos,
@@ -27,23 +42,24 @@ wizard) and by scripts / AI agents (subcommands, flags, `--json`).
 
 ## Install
 
-Requires Node ≥ 20. Until the package is published to npm, install from source:
-
 ```shell
-git clone <repo-url> && cd virlo-cli
-npm install
-npm run build
-npm link        # makes `virlo` available globally (or use: node dist/index.js …)
+npm install -g virlo-cli
 ```
 
-During development you can run without building via `npm run virlo -- <args>`.
+Or run it without installing anything:
+
+```shell
+npx virlo-cli <command>
+```
+
+Requires Node ≥ 20.
 
 ## Quick start
 
 ```shell
 virlo setup             # interactive wizard: paste your virlo_tkn_… key, it validates and saves
 virlo whoami            # masked key + live balance
-virlo trends digest     # today's trends (free)
+virlo trends digest     # today's trends 💲 $0.25 (prompts before spending)
 ```
 
 Kick off a keyword search, wait for it, then read the results:
@@ -65,7 +81,7 @@ Dashboard → API Keys → Generate Key.
 
 ## What you can do
 
-- **Spot trends** — `virlo trends digest`, `virlo videos digest`, `virlo hashtags list` (free)
+- **Spot trends** — `virlo trends digest`, `virlo videos digest` 💲 $0.25 · `virlo hashtags list` 💲 $0.05
 - **Research a niche** — `virlo orbit create` 💲 one-shot keyword search across platforms
 - **Keep watching a niche** — `virlo comet create` 💲 recurring scheduled scrapes
 - **Deep-dive a creator** — `virlo satellite creator tiktok @handle --include videos,outliers` 💲
@@ -81,10 +97,12 @@ Dashboard → API Keys → Generate Key.
 
 Effective config is resolved per-call as **flag > env var > file > default**:
 
+
 | Setting  | Flag         | Env var          | File key  | Default                |
 | -------- | ------------ | ---------------- | --------- | ---------------------- |
-| API key  | `--api-key`  | `VIRLO_API_KEY`  | `apiKey`  | _(none — required)_    |
+| API key  | `--api-key`  | `VIRLO_API_KEY`  | `apiKey`  | *(none — required)*    |
 | Base URL | `--base-url` | `VIRLO_BASE_URL` | `baseUrl` | `https://api.virlo.ai` |
+
 
 `virlo setup` validates your key against the free balance endpoint and saves it to
 `~/.virlo/config.json`. `virlo whoami` shows what's configured (and where it came
@@ -100,13 +118,15 @@ from); `virlo logout` deletes it.
 
 ### Global flags
 
-| Flag            | Description                                                                   |
-| --------------- | ----------------------------------------------------------------------------- |
-| `--json`        | pure JSON on stdout — for scripting / agents                                  |
+
+| Flag            | Description                                                                      |
+| --------------- | -------------------------------------------------------------------------------- |
+| `--json`        | pure JSON on stdout — for scripting / agents                                     |
 | `-y, --yes`     | confirm paid commands without prompting (required when non-interactive/`--json`) |
-| `--api-key`     | override the configured API key                                               |
-| `--base-url`    | override the API base URL                                                     |
-| `-v, --verbose` | log requests to stderr (API key redacted)                                     |
+| `--api-key`     | override the configured API key                                                  |
+| `--base-url`    | override the API base URL                                                        |
+| `-v, --verbose` | log requests to stderr (API key redacted)                                        |
+
 
 Global flags parse before or after the command:
 `virlo --json orbit list` ≡ `virlo orbit list --json`.
@@ -114,13 +134,14 @@ Global flags parse before or after the command:
 ### Output & scripting
 
 - **Default**: human-readable tables / key-value blocks on stdout.
-- **`--json`**: the response `data` payload as pure JSON on stdout (nothing else),
-  so it pipes cleanly into `jq` or an agent. Errors go to **stderr** as
-  `{"error":{"type","message",…}}` — including usage errors. When a list response
-  paginates, one `{"pagination":{…}}` line goes to stderr (check `has_next_page`/
-  `total` there); spend notices also go to stderr, keeping stdout machine-clean.
+- `**--json`**: the response `data` payload as pure JSON on stdout (nothing else),
+so it pipes cleanly into `jq` or an agent. Errors go to **stderr** as
+`{"error":{"type","message",…}}` — including usage errors. When a list response
+paginates, one `{"pagination":{…}}` line goes to stderr (check `has_next_page`/
+`total` there); spend notices also go to stderr, keeping stdout machine-clean.
 
 Exit codes, for branching in scripts:
+
 
 | Code | Meaning              |
 | ---- | -------------------- |
@@ -132,6 +153,7 @@ Exit codes, for branching in scripts:
 | `5`  | rate limited         |
 | `6`  | not found            |
 | `7`  | network              |
+
 
 ### Money & spend safety
 
@@ -146,8 +168,7 @@ work).
 Costs are resolved server-side and may change; known cost hints are shown in `--help`
 and printed before paid calls, and the **actual** charge is always reported from the
 response headers (`💲 spent $X.XX · $Y.YY remaining`, on stderr). Existing results are
-free to re-read — check `virlo orbit list`, `virlo comet list`, `virlo tracking
-creators list` before creating new paid work.
+free to re-read — check `virlo orbit list`, `virlo comet list`, `virlo tracking creators list` before creating new paid work.
 
 ### Async jobs (`--watch`)
 
@@ -178,22 +199,32 @@ Add `--force` to overwrite an existing file.
 
 Run `virlo <group> --help` for full options. 💲 = spends credits.
 
-| Group       | Highlights |
-| ----------- | ---------- |
-| `account`   | `balance` |
-| `hashtags`  | `list`, `performance <hashtag>` |
-| `videos`    | `digest` |
-| `trends`    | `list`, `digest` |
-| `orbit`     | 💲`create`, `list`, `get`, `videos`/`slideshows`/`ads`/`outliers`/`sounds`/`trends`/`analysis <id>` |
-| `comet`     | 💲`create`, `list`, `get`, `update`, `delete`, + same sub-resources as orbit |
+
+| Group       | Highlights                                                                                                                  |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `account`   | `balance`                                                                                                                   |
+| `hashtags`  | 💲`list`, 💲`performance <hashtag>`                                                                                         |
+| `videos`    | 💲`digest`                                                                                                                  |
+| `trends`    | 💲`list`, 💲`digest`                                                                                                        |
+| `orbit`     | 💲`create`, `list`, `get`, `videos`/`slideshows`/`ads`/`outliers`/`sounds`/`trends`/`analysis <id>`                         |
+| `comet`     | 💲`create`, `list`, `get`, `update`, `delete`, + same sub-resources as orbit                                                |
 | `satellite` | 💲`creator <platform> <user>`, `creator-status`, 💲`batch`, `batch-status`, 💲`video-outlier <url>`, `video-outlier-status` |
-| `sounds`    | 💲`trending`, 💲`search <q>`, 💲`by-creator`, 💲`get`, 💲`usage-history`, 💲`videos` |
-| `tracking`  | `creators` / `videos` sub-groups: 💲`add`, `list`, `get`, `report`, `snapshots`, `posts`, 💲`collect`, `update`, `remove` |
-| `webhooks`  | `create`, `list`, `get`, `update`, `delete`, `reenable`, `test`, `deliveries`, `retry-delivery` |
+| `sounds`    | 💲`trending`, 💲`search <q>`, 💲`by-creator`, 💲`get`, 💲`usage-history`, 💲`videos`                                        |
+| `tracking`  | `creators` / `videos` sub-groups: 💲`add`, `list`, `get`, `report`, `snapshots`, `posts`, 💲`collect`, `update`, `remove`   |
+| `webhooks`  | `create`, `list`, `get`, `update`, `delete`, `reenable`, `test`, `deliveries`, `retry-delivery`                             |
+
 
 Out of scope (different auth, not a normal API key): `/v1/admin/*` and `/v1/teams/*`.
 
 ## Development
+
+```shell
+git clone https://github.com/Virlo-AI/virlo-cli && cd virlo-cli
+npm install
+npm run build
+npm link            # makes your local build available globally as `virlo`
+npm run virlo -- …  # or run from source without building (tsx)
+```
 
 ```
 src/
@@ -218,5 +249,5 @@ npm run dev         # tsup --watch
 
 ---
 
-\* Reads are free. Commands marked 💲 spend real credits (1 credit = $0.01) — see
-[Money & spend safety](#money--spend-safety).
+ Commands marked 💲 spend real credits (1 credit = $0.01); re-reading existing
+results is free — see [Money & spend safety](#money--spend-safety).

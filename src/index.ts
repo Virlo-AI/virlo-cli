@@ -52,7 +52,7 @@ program
   .name('virlo')
   .description(
     'Virlo CLI — short-form social intelligence from your terminal.\n\n' +
-      'Reads are free; commands marked 💲 spend credits. Use --json for machine output.',
+      'Commands marked 💲 spend credits; re-reading existing results is free. Use --json for machine output.',
   )
   .version(pkg.version, '--version', 'print version')
   .showHelpAfterError('(run with --help for usage)')

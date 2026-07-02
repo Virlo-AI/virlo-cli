@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "description": "Terminal-native CLI for the Virlo short-form social intelligence API.",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Virlo-AI/virlo-cli.git"
+  },
+  "bugs": "https://github.com/Virlo-AI/virlo-cli/issues",
   "license": "MIT",
   "author": "Virlo",
   "homepage": "https://dev.virlo.ai",
