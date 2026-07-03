@@ -5,10 +5,20 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    commit-message:
+      # CI-only changes: never trigger a release.
+      prefix: ci
   - package-ecosystem: npm
     directory: /
     schedule:
       interval: weekly
+    commit-message:
+      # Runtime dep bumps change the shipped bundle → "fix(deps): …" so
+      # release-please cuts a patch release; devDependencies → "chore(deps): …"
+      # (no release).
+      prefix: fix
+      prefix-development: chore
+      include: scope
     groups:
       npm-minor-patch:
         update-types:
