@@ -1,76 +1,71 @@
 # Releasing virlo-cli
 
-Human-triggered, machine-executed. You decide the version and write the
-changelog; CI publishes from a clean environment with provenance.
+Releases are automated with [release-please](https://github.com/googleapis/release-please)
+(the same setup mercury-cli uses). Nobody edits versions, changelogs, or tags
+by hand.
 
-## One-time setup
+## How it works
 
-1. **npm 2FA** on for every account with publish rights.
-2. **CI token**: npmjs.com → avatar → Access Tokens → *Generate New Token →
-   Granular*. Permissions: read/write, scoped to the `virlo-cli` package only
-   (after first publish; before it, scope to all org packages and narrow later).
-   Set an expiry (e.g. 1 year) and calendar the rotation.
-3. Add it to GitHub: repo → Settings → Secrets and variables → Actions →
-   New repository secret → name `NPM_TOKEN`.
-4. The package must be granted to the org after first publish:
-   `npm access grant read-write virlo:developers virlo-cli`.
+1. **Every PR gets a conventional title**, because squash-merging turns the
+   title into the commit release-please reads:
 
-## Per release
+   | Title prefix               | Effect on next release        |
+   | -------------------------- | ----------------------------- |
+   | `fix: …`                   | patch bump, listed in CHANGELOG |
+   | `feat: …`                  | minor bump, listed in CHANGELOG |
+   | `feat!: …` / `fix!: …`     | **major** bump                 |
+   | `chore: …` / `docs: …` / `ci: …` / `test: …` | no release triggered |
 
-`main` only accepts pull requests, so the version bump lands via PR and the
-tag — the actual release trigger — is created on `main` *after* the merge:
+2. **release-please maintains a release PR** (branch `release-please--*`).
+   Every merge to `main` updates it: the version bump in `package.json` and
+   the generated CHANGELOG entries, always current.
 
-```shell
-# 1. Release branch with the bump + changelog:
-git checkout main && git pull
-git checkout -b release/vX.Y.Z
-npm version patch --no-git-tag-version   # bumps package.json only — no commit, no tag
-#    Move the Unreleased section of CHANGELOG.md under a new "## [X.Y.Z] - date"
-#    heading and update the link refs at the bottom.
-git add -A && git commit -m "release: vX.Y.Z"
-git push -u origin release/vX.Y.Z
+3. **Merging the release PR ships it.** The Release workflow detects the
+   merge, re-runs typecheck + the full test suite, and publishes to npm with
+   `--provenance`. It also creates the git tag and the GitHub Release.
 
-# 2. Open the PR, get it approved, merge it (merge commit or squash — the tag
-#    is created on main afterwards, so either is safe).
+That's the whole flow: merge feature PRs with good titles; merge the release
+PR when you want to ship.
 
-# 3. Tag the merged result — this is what fires the Release workflow:
-git checkout main && git pull
-git tag vX.Y.Z
-git push origin vX.Y.Z
-```
+## Repo settings this depends on
 
-> ⚠ Do **not** use plain `npm version` (without `--no-git-tag-version`) on
-> `main`: it commits directly to the branch, which the ruleset rejects — while
-> the tag still goes through and publishes a release from a commit that never
-> landed on `main`.
+- **Squash merging only** (Settings → General → Pull Requests): the PR title
+  must become the commit message. Disable merge commits and rebase merging.
+- **`NPM_TOKEN` secret**: granular automation token scoped to `virlo-cli`
+  (read/write, expiring — calendar the rotation).
+- **Tag ruleset**: if a ruleset restricts `v*` tag creation, add GitHub
+  Actions to its bypass list — the bot creates the tags now.
 
-The Release workflow (`.github/workflows/release.yml`) then:
+## Quirks worth knowing
 
-- runs typecheck + the full test suite from `npm ci`
-- refuses to publish if the tag doesn't match `package.json`'s version
-- logs the exact tarball contents for the audit trail
-- publishes to npm with `--provenance` (verified supply-chain attestation)
-- creates the GitHub Release with notes extracted from CHANGELOG.md
+- **CI checks on the release PR**: PRs opened by the default Actions token
+  don't trigger `pull_request` workflows. If branch protection blocks the
+  release PR on missing checks, close and reopen it (triggers CI), or merge
+  anyway if allowed — the Release workflow independently re-runs typecheck
+  and all tests before anything is published, so an unpublishable state
+  cannot ship.
+- **Nothing releasable**: if all merges since the last release are `chore:`/
+  `docs:`-typed, release-please won't offer a release. That's by design.
+- **Wrong title merged**: a mistyped squash commit (e.g. `Fix stuff`) is
+  invisible to release-please. It still ships with the next release, just
+  without a changelog line. Fix the habit, not the history.
 
-If any step fails, nothing is published — fix, delete the tag
-(`git tag -d vX.Y.Z && git push origin :refs/tags/vX.Y.Z`), and re-run.
+## Security posture
 
-## Security posture (why it's set up this way)
-
-- **Publishes only from CI** — no long-lived publish tokens on laptops; the
-  token lives in a GitHub secret, scoped to one package, with an expiry.
-- **Provenance** — every npm version carries a signed attestation linking it
-  to the exact commit and workflow run that built it.
-- **Pinned actions** — workflows pin actions to commit SHAs (tags are
-  mutable; SHAs aren't). Dependabot keeps the pins fresh.
-- **Least privilege** — workflows default to zero permissions and request
-  only `contents` and `id-token` where needed; checkout does not persist git
-  credentials.
-- **No mid-flight cancellation** — the release concurrency group prevents
-  overlapping or half-cancelled publishes.
+- **Publishes only from CI** — the npm token lives in a GitHub secret,
+  scoped to one package, with an expiry; no publish tokens on laptops.
+- **Provenance** — every npm version carries a signed SLSA attestation
+  linking it to the exact commit and workflow run that built it.
+- **Pinned actions** — workflows pin actions to commit SHAs; Dependabot
+  keeps the pins fresh.
+- **Least privilege** — workflows request only the permissions they need;
+  checkout does not persist git credentials.
+- **Human decision point** — nothing publishes until a person merges the
+  release PR, and branch rules (reviews, no self-merge) govern that PR like
+  any other.
 
 ## Manual fallback
 
-If CI is down: `npm publish` from a clean checkout works (`prepublishOnly`
-runs typecheck + build), but skips provenance — prefer re-running the
-workflow when possible.
+If automation is down: `npm publish` from a clean checkout of the tagged
+commit works (`prepublishOnly` runs typecheck + build), but skips provenance —
+prefer fixing and re-running the workflow.

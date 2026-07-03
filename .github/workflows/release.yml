@@ -1,76 +1,59 @@
 name: Release
 
-# Human-triggered, machine-executed releases:
-#   1. Update CHANGELOG.md
-#   2. `npm version patch|minor|major` (bumps package.json, commits, tags)
-#   3. `git push --follow-tags`
-# This workflow then validates, publishes to npm with provenance, and creates
-# the GitHub Release with notes extracted from CHANGELOG.md.
+# release-please automates the whole release cycle from conventional PR titles
+# (squash-merged): it maintains a release PR with the version bump + CHANGELOG,
+# and when that PR is merged this same workflow publishes to npm.
 #
-# Requires the NPM_TOKEN repo secret (granular automation token scoped to the
-# virlo-cli package). See RELEASING.md.
+#   fix: …   → patch    feat: …  → minor    feat!: … / BREAKING CHANGE → major
+#
+# See RELEASING.md. Requires the NPM_TOKEN repo secret.
 
 on:
   push:
-    tags:
-      - 'v*.*.*'
+    branches:
+      - main
 
-# No default permissions; each job requests exactly what it needs.
 permissions: {}
 
-# Never run two releases at once; never cancel a publish mid-flight.
 concurrency:
   group: release
   cancel-in-progress: false
 
 jobs:
-  publish:
+  release:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # create the GitHub Release
+      contents: write # push release PR branch, create tags + GitHub Releases
+      pull-requests: write # open/update the release PR
       id-token: write # npm provenance attestation
     steps:
+      - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        id: release
+        with:
+          release-type: node
+
+      # Everything below runs only on the push that merges the release PR.
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        if: ${{ steps.release.outputs.release_created }}
         with:
           persist-credentials: false
       - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        if: ${{ steps.release.outputs.release_created }}
         with:
           node-version: 22.x
           registry-url: https://registry.npmjs.org
           cache: npm
-      - run: npm ci
-      - run: npm run typecheck
-      - run: npm test
-      - name: Verify tag matches package.json version
-        run: |
-          PKG_VERSION="v$(node -p "require('./package.json').version")"
-          if [ "$PKG_VERSION" != "$GITHUB_REF_NAME" ]; then
-            echo "Tag $GITHUB_REF_NAME does not match package.json version $PKG_VERSION" >&2
-            exit 1
-          fi
+      - if: ${{ steps.release.outputs.release_created }}
+        run: npm ci
+      - if: ${{ steps.release.outputs.release_created }}
+        run: npm run typecheck
+      - if: ${{ steps.release.outputs.release_created }}
+        run: npm test
       - name: Show tarball contents (audit trail)
+        if: ${{ steps.release.outputs.release_created }}
         run: npm pack --dry-run
       - name: Publish to npm
+        if: ${{ steps.release.outputs.release_created }}
         run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Extract changelog entry for this version
-        run: |
-          VERSION="${GITHUB_REF_NAME#v}"
-          awk -v ver="$VERSION" '
-            /^## \[/ { in_section = index($0, "[" ver "]") > 0; next }
-            /^\[.*\]: http/ { in_section = 0 }
-            in_section { print }
-          ' CHANGELOG.md > release-notes.md
-          if ! grep -q '[^[:space:]]' release-notes.md; then
-            echo "See CHANGELOG.md for details." > release-notes.md
-          fi
-      - name: Create GitHub Release
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh release create "$GITHUB_REF_NAME" \
-            --repo "$GITHUB_REPOSITORY" \
-            --title "$GITHUB_REF_NAME" \
-            --notes-file release-notes.md \
-            --verify-tag
