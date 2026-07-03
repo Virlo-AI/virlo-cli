@@ -243,6 +243,8 @@ npm test            # builds, then runs the vitest suite
 npm run dev         # tsup --watch
 ```
 
+Releases are tag-triggered from CI — see [RELEASING.md](RELEASING.md).
+
 ## License
 
 [MIT](LICENSE)
