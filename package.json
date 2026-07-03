@@ -1,6 +1,6 @@
 {
   "name": "virlo-cli",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Terminal-native CLI for the Virlo short-form social intelligence API.",
   "type": "module",
   "repository": {
