@@ -17,16 +17,32 @@ changelog; CI publishes from a clean environment with provenance.
 
 ## Per release
 
+`main` only accepts pull requests, so the version bump lands via PR and the
+tag — the actual release trigger — is created on `main` *after* the merge:
+
 ```shell
-# 1. Move the Unreleased section of CHANGELOG.md under a new "## [x.y.z] - date"
-#    heading and update the link refs at the bottom. Commit it.
+# 1. Release branch with the bump + changelog:
+git checkout main && git pull
+git checkout -b release/vX.Y.Z
+npm version patch --no-git-tag-version   # bumps package.json only — no commit, no tag
+#    Move the Unreleased section of CHANGELOG.md under a new "## [X.Y.Z] - date"
+#    heading and update the link refs at the bottom.
+git add -A && git commit -m "release: vX.Y.Z"
+git push -u origin release/vX.Y.Z
 
-# 2. Bump + commit + tag in one atomic step (never edit the version by hand):
-npm version patch      # or minor / major
+# 2. Open the PR, get it approved, merge it (merge commit or squash — the tag
+#    is created on main afterwards, so either is safe).
 
-# 3. Ship it:
-git push --follow-tags
+# 3. Tag the merged result — this is what fires the Release workflow:
+git checkout main && git pull
+git tag vX.Y.Z
+git push origin vX.Y.Z
 ```
+
+> ⚠ Do **not** use plain `npm version` (without `--no-git-tag-version`) on
+> `main`: it commits directly to the branch, which the ruleset rejects — while
+> the tag still goes through and publishes a release from a commit that never
+> landed on `main`.
 
 The Release workflow (`.github/workflows/release.yml`) then:
 
