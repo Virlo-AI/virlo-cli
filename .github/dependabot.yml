@@ -14,3 +14,8 @@ updates:
         update-types:
           - minor
           - patch
+    ignore:
+      # @types/node must track the MINIMUM supported Node major (see engines),
+      # not the newest — bump it only when dropping support for a Node version.
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
