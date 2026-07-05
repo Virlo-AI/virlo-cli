@@ -5,6 +5,7 @@ import { Command } from 'commander';
 import * as p from '@clack/prompts';
 import pc from 'picocolors';
 import { action } from '../lib/cli';
+import { offerAgentHandoff } from '../lib/agent-handoff';
 import { VirloError } from '../client/errors';
 import { SKILL_MARKDOWN, SKILL_NAME } from '../skill/template';
 
@@ -14,10 +15,10 @@ function expandHome(input: string): string {
   return input;
 }
 
-const PROJECT_DIR = path.join(process.cwd(), '.claude', 'skills', SKILL_NAME);
-const GLOBAL_DIR = path.join(os.homedir(), '.claude', 'skills', SKILL_NAME);
+export const PROJECT_DIR = path.join(process.cwd(), '.claude', 'skills', SKILL_NAME);
+export const GLOBAL_DIR = path.join(os.homedir(), '.claude', 'skills', SKILL_NAME);
 
-function relativeOrAbs(abs: string): string {
+export function relativeOrAbs(abs: string): string {
   const rel = path.relative(process.cwd(), abs);
   return rel === '' || rel.startsWith('..') ? abs : `./${rel}`;
 }
@@ -27,7 +28,7 @@ function isClaudeSkillDir(dir: string): boolean {
   return /\.claude[\\/]skills[\\/][^\\/]+$/.test(dir);
 }
 
-function writeSkillFile(dir: string): string {
+export function writeSkillFile(dir: string): string {
   fs.mkdirSync(dir, { recursive: true });
   const file = path.join(dir, 'SKILL.md');
   fs.writeFileSync(file, SKILL_MARKDOWN, 'utf8');
@@ -102,8 +103,26 @@ async function runInstall(o: InstallOptions): Promise<void> {
     : 'For Claude Code auto-discovery, place it under .claude/skills/<name>/.';
 
   if (interactive) {
-    p.note(`${pc.cyan(file)}\n\n${tip}`, 'Installed');
-    p.outro('Done.');
+    p.note(
+      [
+        pc.cyan(file),
+        '',
+        tip,
+        '',
+        'Your agent can now answer things like:',
+        pc.italic('  "what sounds are trending in fitness right now?"'),
+        pc.italic('  "why did this TikTok pop? <url>"'),
+      ].join('\n'),
+      'Installed',
+    );
+    const handoff = await offerAgentHandoff(file);
+    if (handoff !== 'launched') {
+      p.outro(
+        handoff === 'unavailable'
+          ? 'Done. Open your AI agent in this directory and start asking.'
+          : 'Done.',
+      );
+    }
   } else if (process.stdout.isTTY) {
     process.stdout.write(`Installed skill → ${file}\n${pc.dim(tip)}\n`);
   } else {
