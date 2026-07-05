@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import { Command } from 'commander';
 import * as p from '@clack/prompts';
 import pc from 'picocolors';
@@ -14,6 +16,8 @@ import { CONFIG_FILE } from '../config/paths';
 import { request } from '../client/http';
 import { printBanner } from '../lib/banner';
 import { action, reportError } from '../lib/cli';
+import { nextStepsNote, offerAgentHandoff } from '../lib/agent-handoff';
+import { GLOBAL_DIR, PROJECT_DIR, relativeOrAbs, writeSkillFile } from './skill';
 import { ConfigError, VirloError } from '../client/errors';
 
 interface BalancePayload {
@@ -32,6 +36,38 @@ async function fetchBalance(apiKey: string, baseUrl: string): Promise<BalancePay
   };
   const res = await request<BalancePayload>({ method: 'GET', path: '/v1/account/balance', config });
   return res.data ?? {};
+}
+
+/**
+ * Setup step 2: offer to install the agent skill inline so the user never has
+ * to discover `virlo skill install` on their own. Returns the SKILL.md path
+ * when a skill ends up available (just installed or already present) — the
+ * agent handoff step only makes sense when it is, and seeds that path into
+ * the example prompt for agents that don't auto-discover skills.
+ */
+async function offerSkillInstall(): Promise<string | null> {
+  const existingDir = [PROJECT_DIR, GLOBAL_DIR].find((d) =>
+    fs.existsSync(path.join(d, 'SKILL.md')),
+  );
+  if (existingDir) {
+    const existingFile = path.join(existingDir, 'SKILL.md');
+    p.log.info(`Virlo agent skill already installed (${existingFile}).`);
+    return existingFile;
+  }
+
+  const choice = await p.select({
+    message: 'Install the Virlo agent skill? It teaches AI agents (Claude Code, etc.) to use this CLI.',
+    options: [
+      { value: 'global', label: 'Yes — all projects (recommended)', hint: GLOBAL_DIR },
+      { value: 'project', label: 'Yes — just this directory', hint: relativeOrAbs(PROJECT_DIR) },
+      { value: 'skip', label: 'Not now', hint: 'later: virlo skill install' },
+    ],
+  });
+  if (p.isCancel(choice) || choice === 'skip') return null;
+
+  const file = writeSkillFile(choice === 'global' ? GLOBAL_DIR : PROJECT_DIR);
+  p.log.success(`Skill installed → ${pc.cyan(file)}`);
+  return file;
 }
 
 async function runSetup(reset: boolean): Promise<void> {
@@ -113,9 +149,18 @@ async function runSetup(reset: boolean): Promise<void> {
       pc.yellow('⚠ The key is stored in plaintext on disk. Anyone with read access to'),
       pc.yellow('  this file can spend your credits. Override per-call with VIRLO_API_KEY.'),
     ].join('\n'),
-    'Done',
+    'Key saved',
   );
-  p.outro('Ready. Try: ' + pc.cyan('virlo account balance'));
+
+  // Steps 2–3: install the agent skill inline, then (when a supported agent
+  // is on PATH) offer to hand the terminal straight into a live session with
+  // an example query — so setup never ends at an empty command line.
+  const skillFile = await offerSkillInstall();
+  const handoff = skillFile ? await offerAgentHandoff(skillFile) : ('unavailable' as const);
+  if (handoff !== 'launched') {
+    p.note(nextStepsNote(), 'Try these next');
+    p.outro('Ready.');
+  }
 }
 
 export function registerSetup(program: Command): void {
