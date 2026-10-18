@@ -31,6 +31,13 @@ export const PAID: Record<string, PaidEndpoint> = {
   'tracking.creators.add': { hint: '$0.25/cycle (+ collection depth up front)' },
   'tracking.videos.add': { hint: '$0.25/cycle' },
   'tracking.creators.collect': { hint: '$0.50 standard / $1.00 deep / $2.00 full' },
+  'raw.search': { hint: '$0.01 per page' },
+  'raw.hashtag': { hint: '$0.01 per page' },
+  'raw.video': { hint: '$0.01' },
+  'raw.comments': { hint: '$0.01 per page' },
+  'raw.transcript': { hint: '$0.01' },
+  'raw.creator': { hint: '$0.01' },
+  'raw.creator-videos': { hint: '$0.01 per page' },
 };
 
 export function isPaid(key: string): boolean {
