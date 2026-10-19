@@ -88,6 +88,7 @@ Dashboard → API Keys → Generate Key.
 - **Explain a viral video** — `virlo satellite video-outlier <url> --platform tiktok` 💲
 - **Research sounds** — `virlo sounds trending` / `search` / `usage-history` 💲
 - **Track creators & videos over time** — `virlo tracking creators add`, `virlo tracking videos add` 💲
+- **Pull live platform data** — `virlo raw search|hashtag|video|comments|transcript|creator|creator-videos` 💲 $0.01
 - **Get notified** — `virlo webhooks create --url … --events comet.run.completed,…`
 - **Hand it to an agent** — `virlo skill install` teaches Claude the whole surface
 
@@ -212,7 +213,31 @@ Run `virlo <group> --help` for full options. 💲 = spends credits.
 | `sounds`    | 💲`trending`, 💲`search <q>`, 💲`by-creator`, 💲`get`, 💲`usage-history`, 💲`videos`                                        |
 | `tracking`  | `creators` / `videos` sub-groups: 💲`add`, `list`, `get`, `report`, `snapshots`, `posts`, 💲`collect`, `update`, `remove`   |
 | `webhooks`  | `create`, `list`, `get`, `update`, `delete`, `reenable`, `test`, `deliveries`, `retry-delivery`                             |
+| `raw`       | 💲`search <platform> <query>`, 💲`hashtag`, 💲`video <platform> <url-or-id>`, 💲`comments`, 💲`transcript`, 💲`creator <platform> <handle>`, 💲`creator-videos` |
 
+
+### Raw data (`virlo raw`)
+
+Live platform data for TikTok, YouTube Shorts and Instagram Reels, one normalized shape
+per resource. Each call costs 1 credit ($0.01) and returns one page. A 4xx or 5xx error
+costs nothing.
+
+```shell
+virlo raw search tiktok "morning routine" --yes
+virlo raw hashtag instagram fitness --yes
+virlo raw video youtube https://youtube.com/shorts/<id> --yes   # a URL or the video ID
+virlo raw comments tiktok <url-or-id> --yes
+virlo raw transcript youtube <url-or-id> --yes                  # tiktok and youtube only
+virlo raw creator tiktok @handle --yes
+virlo raw creator-videos tiktok @handle --cursor <c> --yes
+```
+
+List commands print the exact next-page command when there is more. With `--json`,
+stdout carries the full body, `{ "data": [...], "pagination": { "next_cursor", "has_more" } }`,
+so pass `next_cursor` back with `--cursor`. The CLI fetches one page per call, never more.
+
+Use `raw` for a specific fact you need now. Use orbit, comet, satellite and trends when you
+want ranking, outliers or AI analysis across many videos.
 
 Out of scope (different auth, not a normal API key): `/v1/admin/*` and `/v1/teams/*`.
 

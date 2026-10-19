@@ -14,6 +14,7 @@ import { registerSounds } from './commands/sounds';
 import { registerTracking } from './commands/tracking';
 import { registerWebhooks } from './commands/webhooks';
 import { registerSkill } from './commands/skill';
+import { registerRaw } from './commands/raw';
 
 // dist/index.js (built) sits at the package root's dist/ dir, and src/index.ts
 // (run via tsx) sits at the package root's src/ dir — '../package.json' resolves
@@ -90,6 +91,7 @@ registerSatellite(program);
 registerSounds(program);
 registerTracking(program);
 registerWebhooks(program);
+registerRaw(program);
 registerSkill(program);
 
 addGlobalsToDescendants(program);
