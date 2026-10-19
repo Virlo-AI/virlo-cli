@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0](https://github.com/Virlo-AI/virlo-cli/compare/v0.2.0...v0.3.0) (2026-10-19)
+
+
+### Features
+
+* virlo raw command group ([#22](https://github.com/Virlo-AI/virlo-cli/issues/22)) ([e3769a0](https://github.com/Virlo-AI/virlo-cli/commit/e3769a0b0bc7f8f7401fe32efb52f3dd1cbc264f))
+
 ## [0.2.0](https://github.com/Virlo-AI/virlo-cli/compare/v0.1.2...v0.2.0) (2026-07-05)
 
 
