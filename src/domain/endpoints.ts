@@ -38,6 +38,10 @@ export const PAID: Record<string, PaidEndpoint> = {
   'raw.transcript': { hint: '$0.01' },
   'raw.creator': { hint: '$0.01' },
   'raw.creator-videos': { hint: '$0.01 per page' },
+  'raw.meta.ad-search': { hint: '$0.01 per page' },
+  'raw.meta.ad': { hint: '$0.01' },
+  'raw.meta.advertiser-search': { hint: '$0.01' },
+  'raw.meta.advertiser-ads': { hint: '$0.01 per page' },
 };
 
 export function isPaid(key: string): boolean {
