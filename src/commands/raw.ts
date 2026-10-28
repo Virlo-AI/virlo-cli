@@ -136,7 +136,7 @@ export function fmtCount(v: unknown): string | null {
   return String(v);
 }
 
-function snippet(v: unknown, max = 60): string | null {
+export function snippet(v: unknown, max = 60): string | null {
   if (typeof v !== 'string' || !v.trim()) return null;
   const s = v.replace(/\s+/g, ' ').trim();
   return s.length > max ? `${s.slice(0, max - 1)}…` : s;
@@ -268,11 +268,11 @@ async function runRaw(ctx: Ctx, op: RawOp, args: string[], cursor?: string): Pro
 const PLATFORM_HELP = 'tiktok | youtube | instagram';
 const REF_HELP = 'video URL or platform video ID';
 
-export function registerRaw(program: Command): void {
+export function registerRaw(program: Command): Command {
   const raw = program
     .command('raw')
     .description(
-      'Live platform data: search, hashtags, videos, comments, transcripts, creators (1 credit per call, one page per call)',
+      'Live platform data: search, hashtags, videos, comments, transcripts, creators, Meta ads via `raw meta` (1 credit per call, one page per call)',
     );
 
   const paged = (cmd: Command) => cmd.option('--cursor <c>', 'next-page cursor from the previous response');
@@ -331,4 +331,6 @@ export function registerRaw(program: Command): void {
   ).action(
     action(async ({ positional, opts, ctx }) => runRaw(ctx, 'creator-videos', positional, opts.cursor as string)),
   );
+
+  return raw;
 }

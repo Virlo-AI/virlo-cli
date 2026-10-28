@@ -89,6 +89,7 @@ Dashboard → API Keys → Generate Key.
 - **Research sounds** — `virlo sounds trending` / `search` / `usage-history` 💲
 - **Track creators & videos over time** — `virlo tracking creators add`, `virlo tracking videos add` 💲
 - **Pull live platform data** — `virlo raw search|hashtag|video|comments|transcript|creator|creator-videos` 💲 $0.01
+- **Pull live Meta ads** with `virlo raw meta ad-search|ad|advertiser-search|advertiser-ads` 💲 $0.01
 - **Get notified** — `virlo webhooks create --url … --events comet.run.completed,…`
 - **Hand it to an agent** — `virlo skill install` teaches Claude the whole surface
 
@@ -214,6 +215,7 @@ Run `virlo <group> --help` for full options. 💲 = spends credits.
 | `tracking`  | `creators` / `videos` sub-groups: 💲`add`, `list`, `get`, `report`, `snapshots`, `posts`, 💲`collect`, `update`, `remove`   |
 | `webhooks`  | `create`, `list`, `get`, `update`, `delete`, `reenable`, `test`, `deliveries`, `retry-delivery`                             |
 | `raw`       | 💲`search <platform> <query>`, 💲`hashtag`, 💲`video <platform> <url-or-id>`, 💲`comments`, 💲`transcript`, 💲`creator <platform> <handle>`, 💲`creator-videos` |
+| `raw meta`  | 💲`ad-search <query>`, 💲`ad <ad-id>`, 💲`advertiser-search <query>`, 💲`advertiser-ads <page-id-or-name>` |
 
 
 ### Raw data (`virlo raw`)
@@ -235,6 +237,25 @@ virlo raw creator-videos tiktok @handle --cursor <c> --yes
 List commands print the exact next-page command when there is more. With `--json`,
 stdout carries the full body, `{ "data": [...], "pagination": { "next_cursor", "has_more" } }`,
 so pass `next_cursor` back with `--cursor`. The CLI fetches one page per call, never more.
+
+### Meta ads (`virlo raw meta`)
+
+Live data from the Meta Ad Library, with the same pricing and paging as the rest of `raw`.
+
+```shell
+virlo raw meta ad-search "running shoes" --country US --media-type video --yes
+virlo raw meta ad 1035817839464984 --yes
+virlo raw meta advertiser-search nike --yes            # one list, no paging
+virlo raw meta advertiser-ads 15087023444 --yes        # by page ID
+virlo raw meta advertiser-ads gymshark --status all --yes   # by name
+```
+
+Filters on `ad-search` and `advertiser-ads`: `--country` (2-letter code or `ALL`, default
+`ALL`), `--status` (`active`, `inactive`, `all`; default `active`) and `--media-type`
+(`all`, `image`, `video`, `meme`, `none`; default `all`). Pass the same filters with
+`--cursor` on later pages. A name in `advertiser-ads` resolves to the first live match, and
+the response names that advertiser in `advertiser`. Add `--by-name` when the name is all
+digits. Image and video URLs in ads expire after a few days.
 
 Use `raw` for a specific fact you need now. Use orbit, comet, satellite and trends when you
 want ranking, outliers or AI analysis across many videos.
