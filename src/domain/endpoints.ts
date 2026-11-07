@@ -13,7 +13,7 @@ export interface PaidEndpoint {
 
 export const PAID: Record<string, PaidEndpoint> = {
   'trends.list': { hint: '$0.25' },
-  'trends.digest': { hint: '$0.25' },
+  'trends.today': { hint: '$0.25' },
   'videos.digest': { hint: '$0.25' },
   'hashtags.list': { hint: '$0.05' },
   'hashtags.performance': { hint: '$0.05' },
