@@ -59,7 +59,7 @@ Requires Node ≥ 20.
 ```shell
 virlo setup             # interactive wizard: paste your virlo_tkn_… key, it validates and saves
 virlo whoami            # masked key + live balance
-virlo trends digest     # today's trends 💲 $0.25 (prompts before spending)
+virlo trends today      # today's Topic Trends 💲 $0.25 (prompts before spending)
 ```
 
 Kick off a keyword search, wait for it, then read the results:
@@ -81,7 +81,9 @@ Dashboard → API Keys → Generate Key.
 
 ## What you can do
 
-- **Spot trends** — `virlo trends digest`, `virlo videos digest` 💲 $0.25 · `virlo hashtags list` 💲 $0.05
+- **See what people are talking about** — `virlo trends today` (Topic Trends, by region) 💲 $0.25
+  · filter with `--category` / `--exclude-category`, e.g. `--exclude-category politics,news`
+- **Spot viral videos and hashtags** — `virlo videos digest` 💲 $0.25 · `virlo hashtags list` 💲 $0.05
 - **Research a niche** — `virlo orbit create` 💲 one-shot keyword search across platforms
 - **Keep watching a niche** — `virlo comet create` 💲 recurring scheduled scrapes
 - **Deep-dive a creator** — `virlo satellite creator tiktok @handle --include videos,outliers` 💲
@@ -206,7 +208,7 @@ Run `virlo <group> --help` for full options. 💲 = spends credits.
 | `account`   | `balance`                                                                                                                   |
 | `hashtags`  | 💲`list`, 💲`performance <hashtag>`                                                                                         |
 | `videos`    | 💲`digest`                                                                                                                  |
-| `trends`    | 💲`list`, 💲`digest`                                                                                                        |
+| `trends`    | Topic Trends (alias `topic-trends`): 💲`today` (alias `digest`), 💲`list`; `--region`, `--category`, `--exclude-category`  |
 | `orbit`     | 💲`create`, `list`, `get`, `videos`/`slideshows`/`ads`/`outliers`/`sounds`/`trends`/`analysis <id>`                         |
 | `comet`     | 💲`create`, `list`, `get`, `update`, `delete`, + same sub-resources as orbit                                                |
 | `satellite` | 💲`creator <platform> <user>`, `creator-status`, 💲`batch`, `batch-status`, 💲`video-outlier <url>`, `video-outlier-status` |

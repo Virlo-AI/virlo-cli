@@ -106,7 +106,7 @@ export async function offerAgentHandoff(skillFile: string): Promise<HandoffResul
 export function nextStepsNote(): string {
   return [
     `${pc.cyan('virlo sounds trending')}   breakout sounds right now ${pc.dim('(💲 small read cost)')}`,
-    `${pc.cyan('virlo trends list')}       AI-detected trends ${pc.dim('(💲 small read cost)')}`,
+    `${pc.cyan('virlo trends today')}      Topic Trends: what people talk about ${pc.dim('(💲 small read cost)')}`,
     `${pc.cyan('virlo whoami')}            your key + balance ${pc.dim('(free)')}`,
     '',
     `All commands: ${pc.cyan('virlo --help')} · Docs: ${pc.cyan('https://dev.virlo.ai')}`,
