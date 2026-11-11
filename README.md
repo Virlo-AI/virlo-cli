@@ -86,6 +86,8 @@ Dashboard → API Keys → Generate Key.
 - **Keep watching a niche** — `virlo comet create` 💲 recurring scheduled scrapes
 - **Deep-dive a creator** — `virlo satellite creator tiktok @handle --include videos,outliers` 💲
 - **Explain a viral video** — `virlo satellite video-outlier <url> --platform tiktok` 💲
+- **Read the posts tagged at a TikTok place (beta):** `virlo satellite place --query "<name>"` 💲
+- **See what changed between two saved lookups:** `virlo satellite compare <run_id>`
 - **Research sounds** — `virlo sounds trending` / `search` / `usage-history` 💲
 - **Track creators & videos over time** — `virlo tracking creators add`, `virlo tracking videos add` 💲
 - **Pull live platform data** — `virlo raw search|hashtag|video|comments|transcript|creator|creator-videos` 💲 $0.01
@@ -209,12 +211,35 @@ Run `virlo <group> --help` for full options. 💲 = spends credits.
 | `trends`    | 💲`list`, 💲`digest`                                                                                                        |
 | `orbit`     | 💲`create`, `list`, `get`, `videos`/`slideshows`/`ads`/`outliers`/`sounds`/`trends`/`analysis <id>`                         |
 | `comet`     | 💲`create`, `list`, `get`, `update`, `delete`, + same sub-resources as orbit                                                |
-| `satellite` | 💲`creator <platform> <user>`, `creator-status`, 💲`batch`, `batch-status`, 💲`video-outlier <url>`, `video-outlier-status` |
+| `satellite` | 💲`creator <platform> <user>`, `creator-status`, 💲`batch`, `batch-status`, 💲`video-outlier <url>`, `video-outlier-status`, 💲`place`, `place-status`, `compare <run_id>`, 💲`refresh <run_id>` |
 | `sounds`    | 💲`trending`, 💲`search <q>`, 💲`by-creator`, 💲`get`, 💲`usage-history`, 💲`videos`                                        |
 | `tracking`  | `creators` / `videos` sub-groups: 💲`add`, `list`, `get`, `report`, `snapshots`, `posts`, 💲`collect`, `update`, `remove`   |
 | `webhooks`  | `create`, `list`, `get`, `update`, `delete`, `reenable`, `test`, `deliveries`, `retry-delivery`                             |
 | `raw`       | 💲`search <platform> <query>`, 💲`hashtag`, 💲`video <platform> <url-or-id>`, 💲`comments`, 💲`transcript`, 💲`creator <platform> <handle>`, 💲`creator-videos` |
 
+
+### Satellite places, comparisons and repeats
+
+```shell
+virlo satellite place --query "Melbourne Cricket Ground" --watch --yes
+virlo satellite place --place-id <virlo-place-id> --max-videos 50 --yes
+virlo satellite place --poi-id <tiktok-place-id> --yes
+virlo satellite place-status <job_id>
+virlo satellite compare <run_id> --previous-run-id <earlier_run_id>
+virlo satellite refresh <run_id> --watch --yes
+```
+
+`place` (TikTok places, beta) returns the posts tagged at one place, TikTok's tag count, and
+what changed since your team's previous lookup of that place. Name the place with exactly
+one of `--query`, `--place-id` or `--poi-id`. A `--query` that matches several TikTok places
+lists the candidates and charges nothing, so pick one and re-run with `--place-id`. A lookup
+costs $0.50 once it starts. The same place within 6 hours returns the earlier run for free,
+and a failed lookup is refunded.
+
+`compare` is free and shows each headline number before and after, plus new, kept and dropped
+posts. It compares with your team's previous completed run of the same subject unless you pass
+`--previous-run-id`. `refresh` runs a saved lookup again with the same options at today's
+price. A covering run from the last 6 hours is returned for free.
 
 ### Raw data (`virlo raw`)
 
