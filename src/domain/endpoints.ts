@@ -22,6 +22,12 @@ export const PAID: Record<string, PaidEndpoint> = {
   'satellite.creator': { hint: '$0.50 per creator (starts a scrape job)' },
   'satellite.batch': { hint: '$0.50 per creator' },
   'satellite.video-outlier': { hint: '$0.50 (starts a video-outlier job)' },
+  'satellite.place': {
+    hint: '$0.50 per lookup started; free when --query lists candidates or the place was read in the last 6 hours',
+  },
+  'satellite.refresh': {
+    hint: "the original lookup's current price, $0.50 base plus its add-ons; free when a covering run is under 6 hours old",
+  },
   'sounds.trending': { hint: '$0.25' },
   'sounds.search': { hint: '$0.10' },
   'sounds.by-creator': { hint: '$0.25' },
